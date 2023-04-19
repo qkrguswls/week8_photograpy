@@ -1,0 +1,731 @@
+#wrap {
+    width: 100%;
+}
+/* header영역 */
+#wrap #header {
+    z-index: 3;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 76px;
+    background: rgba(0, 0, 0, 0.7); /* back-color:임시컬러, 평소에는 backg-만 씀 */
+    border-bottom: 1px solid rgba(255, 255, 255, .15);
+}
+#wrap #header .container {
+    width: 100%;
+    max-width: 1170px; /*반응형일때 1170을 만나면 100%로됨, 1170을 넘으면 더이상커지지않음*/
+    height: 100%; /* 75픽셀이됨(왜냐면 부모가 76px에서 보더값1이 빠지니까), so 76px이라고 쓰면 안됨 */
+    margin: 0 auto;
+}
+#wrap #header .container .gap {
+    padding: 0 15px;
+    display: flex;
+    height: 100%;
+}
+/* 로고 */
+#wrap #header .container .gap h1 {
+    width: 156px;
+    margin: auto auto auto 0; /* 왼쪽가운데정렬 */
+}
+#wrap #header .container .gap h1 a {
+    display: block;
+    width: 100%; /* 부모넓이 156을쓰겠다는뜻 */
+}
+#wrap #header .container .gap h1 a img {
+    width: 100%;
+    /* 만약에 나중에 로고크기를 줄여야한다면 h1만 수정하면되니까 편리함 */
+}
+/* 네비게이션 */
+#wrap #header .container .gap nav {
+    margin: auto 0 auto auto; /* 오른쪽가운데정렬 */
+}
+#wrap #header .container .gap nav ul {
+    display: flex;
+}
+#wrap #header .container .gap nav ul li {
+    margin: 0 0 0 40px;
+    /* 되도록이면 좌우는 패딩말고 마진으로 값주기 */
+}
+#wrap #header .container .gap nav ul li a {
+    color: rgba(255, 255, 255, 1);
+    /* a가 아니라 li에 쓰면 안바뀜 => 이유는 reset에서 a의 글씨색을 변경했기때문에! */
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.3s;
+    /* hover가 느릿하게바뀌도록 시간을 추가해줌, 0.3초만에 나타나게 */
+}
+#wrap #header .container .gap nav ul li a:hover {
+    color: rgba(255, 255, 255, .6);
+}
+
+/* main영역 */
+#wrap #main {
+    z-index: 2;
+    position: relative;
+    width: 100%;
+}
+#wrap #main #section1 {
+    position: relative;
+    /* position없으면 #section1의 span이 position을 main기준으로 되기때문에 위치가 메인 끝으로 가버림 */
+    width: 100%;
+    height: 100vh; /* 홈페이지 창의높이를 다쓰겠다는 뜻, 100%는 부모의 높이가 없어서 못쓰니까 */
+    background: url(../img/photography-img1-1024x512.jpg) no-repeat 50% 50% fixed;
+    /* 50%=center라는뜻..수평과 수직 */
+    /* fixed: 이미지를 배경에 고정함 */
+    background-size: cover;
+    /* 화면에 꽉채우도록 만들어줌 */
+    display: flex;
+    /* 타이틀 좌우, 상하가운데정렬: flex를 쓰는순간 블록에서 인라인으로 바뀜 */
+    justify-content: center; /* 수평가운데 */
+    align-items: center; /* 수직정렬 */
+}
+#wrap #main #section1 h2 {
+    font-size: 200px;
+    font-weight: 600;
+    color: rgba(0, 255, 151, .5);
+}
+#wrap #main #section1 span {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    width: 100%;
+    /* background-color: #f00; */
+    text-align: center;
+}
+#wrap #main #section1 span strong {
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    display: inline-block;
+    /* inline일 경우에는 strong:after의 줄이 길이가 화면을 꽉채움, 부모가 인라인으로 너비가 없으니까, 그래서 부모를 인라인속성에서 벗어나지 않지만 너비값을 가지는 인라인블록으로 해준거임 */
+}
+/* 가상요소 만들기 */
+/* 가상요소로 하면 부모요소의 길이를 따라서 가기때문에 작업에 최적, 다른태그로해주면 완벽히 맞는 길이를 찾기 어려움 */
+#wrap #main #section1 span strong::after {
+    /* content: "여기는 after가상요소입니다."; */
+    content: "";
+    display: block; /* 줄바꿈 */
+    background-color: rgba(0, 255, 151, 1);
+    height: 3px;
+    margin: 20px 0 0 0; /* 시계방향 */
+}
+#wrap #main #section2 {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: url(../img/photography-img2-1024x512.jpg) no-repeat 50% 50% fixed;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#wrap #main #section2 h2 {
+    font-size: 200px;
+    font-weight: 600;
+    color: rgba(0, 255, 151, .5);
+}
+#wrap #main #section2 span {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    /* background-color: red; */
+}
+#wrap #main #section2 span strong {
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    display: inline-block;
+}
+#wrap #main #section2 strong::after {
+    content: "";
+    display: block;
+    height: 3px;
+    margin: 20px 0 0 0;
+    background: rgba(0, 255, 151, 1);
+}
+#wrap #main #section3 {
+    width: 100%;
+    height: 100vh;
+    background: url(../img/photography-img3-1024x512.jpg) no-repeat 50% 50% fixed;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+#wrap #main #section3 h2 {
+    font-size: 200px;
+    color: rgba(0, 255, 151, .5);
+    font-weight: 600;
+}
+#wrap #main #section3 span {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    width: 100%;
+    /* background-color: red; */
+    text-align: center;
+}
+#wrap #main #section3 span strong {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    display: inline-block;
+}
+#wrap #main #section3 span strong::after {
+    content: "";
+    display: block;
+    height: 3px;
+    background: rgba(0, 255, 151, 1);
+    margin: 20px 0 0 0;
+}
+#wrap #main #section4 {
+    width: 100%;
+    height: 100vh;
+    background: url(../img/photography-img4-1024x512.jpg) no-repeat 50% 50% fixed;
+    background-size: cover;
+    display: flex;
+    /* 플렉스 부모 = 플렉스 컨테이너 */
+    /* 부모에서는 align, justify쓰고 자식에서하려면 margin씀 */
+    position: relative;
+}
+#wrap #main #section4 h2 {
+    font-size: 200px;
+    font-weight: 600;
+    color: rgba(0, 255, 151, .5);
+    /* 이번엔 부모말고 여기서 정렬해보기 */
+    /* (용어) 플렉스 자식 = 플렉스 아이템 */
+    margin: auto; /* auto 0 0 0은 아래정렬, auto 0 0 auto은 오른쪽정렬, 0 auto 0 auto는 가운데정렬, auto auto 0 auto는 수직아래 수평가운데 */
+    
+}
+#wrap #main #section4 span {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    /* background-color: red; */
+    width: 100%;
+    text-align: center;
+}
+#wrap #main #section4 span strong {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-block;
+}
+#wrap #main #section4 span strong::after {
+    content: "";
+    display: block;
+    height: 3px;
+    background: rgba(0, 255, 151, 1);
+    margin: 20px 0 0 0;
+}
+#wrap #main #section5 {
+    width: 100%;
+    height: 600px;
+    background: url(../img/photography-img5-1024x425.jpg) no-repeat 50% 50% fixed;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+#wrap #main #section5 h2 {
+    font-size: 200px;
+    font-weight: 600;
+    color: rgba(0, 255, 151, .5);
+}
+#wrap #main #section5 span {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    /* background-color: red; */
+    width: 100%;
+    text-align: center;
+}
+#wrap #main #section5 span strong {
+    color: #333;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-block;
+}
+#wrap #main #section5 span strong::after {
+    content: "";
+    display: block;
+    height: 3px;
+    background: rgba(0, 255, 151, 1);
+    margin: 20px 0 0 0;
+}
+#wrap #main #section6 {
+    width: 100%;
+    height: 600px;
+    background: url(../img/photography-img6-1024x287.jpg) no-repeat 50% 50% fixed;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+#wrap #main #section6 h2 {
+    font-size: 200px;
+    font-weight: 600;
+    color: rgba(0, 255, 151, .5);
+}
+#wrap #main #section6 span {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    /* background-color: red; */
+    width: 100%;
+    text-align: center;
+}
+#wrap #main #section6 span strong {
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-block;
+}
+#wrap #main #section6 span strong::after {
+    content: "";
+    display: block;
+    height: 3px;
+    background: rgba(0, 255, 151, 1);
+    margin: 20px 0 0 0;
+}
+#wrap #main #section7 {
+    width: 100%;
+    height: 600px;
+    background-color: rgba(0, 42, 150, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+#wrap #main #section7 h2 {
+    font-size: 200px;
+    font-weight: 600;
+    color: rgba(0, 255, 151, .5);
+}
+#wrap #main #section7 span {
+    position: absolute;
+    left: 0;
+    bottom: 60px;
+    width: 100%;
+    text-align: center;
+    /* background-color: red; */
+}
+#wrap #main #section7 span strong {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-block;
+}
+#wrap #main #section7 span strong::after {
+    content: "";
+    display: block;
+    height: 3px;
+    background: rgba(0, 255, 151, 1);
+    margin: 20px 0 0 0;
+}
+/* 섹션8 */
+#wrap #main #section8 {
+    width: 100%;
+    height: 700px;
+    background: #fff;
+    padding: 130px 0;
+}
+#wrap #main #section8 .container {}
+#wrap #main #section8 .container .gap {}
+
+/* title: hidden */
+/* #wrap #main #section8 .container .gap .title {} */
+
+#wrap #main #section8 .container .gap .content {}
+
+#wrap #main #section8 .container .gap .content nav {}
+#wrap #main #section8 .container .gap .content nav ul {}
+#wrap #main #section8 .container .gap .content nav ul li {}
+#wrap #main #section8 .container .gap .content nav ul li a {}
+
+#wrap #main #section8 .container .gap .content .gallery {}
+#wrap #main #section8 .container .gap .content .gallery ul {}
+#wrap #main #section8 .container .gap .content .gallery ul li {}
+#wrap #main #section8 .container .gap .content .gallery ul li .col-gap {}
+#wrap #main #section8 .container .gap .content .gallery ul li .col-gap .img-box {}
+#wrap #main #section8 .container .gap .content .gallery ul li .col-gap .img-box img {}
+/* 섹션9 */
+#wrap #main #section9 {
+    padding: 130px 0;
+    width: 100%;
+    background: #f7f7f7 url(../img/photography-img25-1536x638.jpg) no-repeat 50% 50%;
+    background-size: cover;
+}
+#wrap #main #section9 .container {
+    width: 1170px;
+    margin: 0 auto;
+}
+#wrap #main #section9 .container .gap {
+    /* padding: 0 15px;
+    width: 100%; */
+    /* width에 패딩이포함됨(reset.css에서 box-sizing:보더박스) => 내부내용 너비는 1140px이 됨 => 그러나 마진을 쓰면 포함이 안되므로 마진만큼 길이가 늘어나게됨 => so, 마진을 쓸땐 width:auto를 주기!(auto:허용하는 길이를 주겠다는 뜻) */
+    margin: 0 15px;
+    width: auto;
+    /* background: darkcyan; */
+    display: flex;
+}
+#wrap #main #section9 .container .gap article {
+    width: 50%;
+    /* height: 700px; 임시높이*/
+}
+#wrap #main #section9 .container .gap article:nth-child(1) {
+    /* background-color: red; */
+}
+#wrap #main #section9 .container .gap article:nth-child(1) h2 {
+    font-size: 100px;
+    color: rgba(0, 255, 151, .5);
+    padding: 75.5px 0;
+    font-weight: 600;
+}
+#wrap #main #section9 .container .gap article:nth-child(2) {
+    /* background-color: rgb(207, 207, 243); */
+}
+#wrap #main #section9 .container .gap article:nth-child(2) .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* 전파일에서처럼 margin으로 줘도되고 이것도 된대; */
+}
+#wrap #main #section9 .container .gap article:nth-child(2) .title hr {
+    border: 0;
+    height: 1px;
+    background: rgb(0, 255, 151);
+    width: 75%;
+}
+#wrap #main #section9 .container .gap article:nth-child(2) .title h3 {
+    font-size: 20px;
+    color: #626262;
+    font-weight: 500;
+}
+
+#wrap #main #section9 .container .gap article:nth-child(2) ul {
+    padding: 30px 0;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+}
+#wrap #main #section9 .container .gap article:nth-child(2) ul li {
+    width: 50%;
+    display: flex;
+    padding: 15px 10px;
+}
+#wrap #main #section9 .container .gap article:nth-child(2) ul li figure {
+    width: 67.6px;
+}
+#wrap #main #section9 .container .gap article:nth-child(2) ul li figure img {
+    width: 100%;
+}
+#wrap #main #section9 .container .gap article:nth-child(2) ul li div {
+    padding: 0 0 0 15px;
+}
+#wrap #main #section9 .container .gap article:nth-child(2) ul li div h4 {
+    font-size: 13px;
+    color: rgb(98, 98, 98);
+    font-weight: 500;
+}
+#wrap #main #section9 .container .gap article:nth-child(2) ul li div h5 {
+    padding: 10px 0 15px 0;
+    font-size: 11px;
+    color: rgb(98, 98, 98);
+}
+#wrap #main #section9 .container .gap article:nth-child(2) ul li div span {
+    display: block;
+}
+#wrap #main #section9 .container .gap article:nth-child(2) ul li div span i {
+    display: block;
+    width: 30px;
+    height: 2px;
+    background: rgb(98, 98, 98);
+}
+
+/* 섹션10 ~ 섹션14 공통요소 스타일적용 */
+#wrap #main .section10-14 {
+    width: 100%;
+    height: 246.391px;
+    position: relative;
+}
+/* 섹션10의 자식요소생성(가상요소) */
+#wrap #main .section10-14::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: url() no-repeat 50% 40%;
+    /* url괄호안에 이미지넣어놓고 밑에서 #section10::before을 빼줘도되고 이렇게해도됨 */
+    filter: brightness(0.7);
+    /* filter: 1은 밝기를 최대로쓰니까 똑같음 아래로내릴수록 어둡게 */
+    background-size: cover;
+    z-index: 1;
+    position: absolute; /*z-index를 위해서 relative를 해줬는데, 그거때매 배경이 꽉차게 돼서 container박스가 못올라옴->앱솔루트로 바꿔줌,얘를 공중에 떠놓고 제목에는 포지션안줘도 위에 올라오게됨*/
+    top: 0;
+    left: 0;
+    transition: all 0.3;
+}
+#wrap #main .section10-14:hover::before {
+    background-position: 50% 20%;
+    /* 좌우, 상하 순 */
+}
+/* 섹션10의 자식요소생성 */
+/* #wrap #main #section10::after {
+    content: "AFTER";
+    display: block; => 비포의 형제요소, 앱솔루트써줘서 굳이 안써도됨(앱솔루트는 기본이 넓이를 먹게해줌) 
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 50%;
+    font-size: 200px;
+    color: rgba(204, 85, 85, .7);
+    z-index: 2;
+    margin: -100px 0 0 0;
+    text-align: center;
+    font-weight: 900;
+} */
+#wrap #main .section10-14::after {
+    /* 필터를 덮고있는 뿌연검정화면을 만드려고 */
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%; /*부모요소의 높이를 다 사용하겠다!*/
+    z-index: 2; /*before가 1이니까*/
+    background: rgba(70, 70, 70, .7);
+    transition: all 0.3s;
+}
+#wrap #main .section10-14:hover::after {
+    background-color: rgba(70, 70, 70, .2);
+}
+/* #wrap #main #section10 h2 {
+    font-size: 200px;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+    margin-top: -100px;
+    글자크기가 200이라 탑50%해주면 글자윗부분이 가운데에 오게돼서 마진탑 마이너스100픽셀해줘야함
+    text-align: center;
+    background-color: #f09; 
+} */
+
+/*
+#wrap #main #section11 {
+    width: 100%;
+    height: 246.391px;
+    position: relative;
+}
+#wrap #main #section11::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: url(../img/photography-img36.jpg.webp) no-repeat 50% 40%;
+    background-size: cover;
+    filter: brightness(0.7);
+    z-index: 1;
+    position: relative;
+}
+#wrap #main #section11:hover::before {
+    background-position: 50% 20%;
+}
+#wrap #main #section11::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    background: rgba(70, 70, 70, .7);
+    transition: all 0.3s;
+}
+#wrap #main #section11:hover::after {
+    background-color: rgba(70, 70, 70, .2);
+}
+#wrap #main #section12 {
+    width: 100%;
+    position: relative;
+    /* 여기서 height 246px을 주고 비포에 height 100%해줘도됨 
+}
+#wrap #main #section12::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 246.391px;
+    background: url(../img/photography-img37.jpg.webp) no-repeat 50% 40%;
+    background-size: cover;
+    filter: brightness(0.7);
+    z-index: 1;
+    position: relative;
+    /* 여기서 height값을 잡고 에프터는 height100%로해준이유는: 앱솔루트는 다른 태그들의 높이에 영향을 줄수없음 float개념이라 붕뜬거라서 relative인 이곳에서 해줬기때문에 애프터 100%에 영향을 준거임 
+    transition: all 0.3s;
+}
+#wrap #main #section12:hover::before {
+    background-position: 50% 20%;
+}
+#wrap #main #section12::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* 부모높이의 100%지만 부모에 높이가없어도 자식에서 높이값이 잡혀져있기때문에 그 값과 연관짓게됨 
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: rgba(70, 70, 70, .7);
+    z-index: 2;
+}
+#wrap #main #section12:hover::after {
+    background-color: rgba(70, 70, 70, 0.2);
+    /* 수정하는거니까 정확하게써줌, 평소에는 그냥 background써주기 
+}
+*/
+
+/* 섹션10 ~ 14 박스모델링 */
+#wrap #main .section10-14 .container {
+    width: 1170px;
+    margin: 0 auto;
+    /* background-color: red; */
+    z-index: 3;
+    position: relative;
+    height: 100%;
+}
+#wrap #main .section10-14 .container .gap {
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+#wrap #main .section10-14 .container .gap .left {
+    width: 50%;
+    /* background-color: blue; */
+    display: flex;
+    align-items: center;
+    /* 이건 자식에 높이가 있어서 align center가 됨, h태그는 글자크기가 주어져있으니 height값이 있다고보면됨 */
+}
+#wrap #main .section10-14 .container .gap .left h2 {
+    color: rgba(133, 238, 165, 1);
+    font-size: 80px;
+    font-weight: 500;
+    width: 130px;
+    /* padding주면 h2안에적은 글자길이에 따라 여백이 달라지게 돼서 가로값을 고정으로 줌 */
+}
+#wrap #main .section10-14 .container .gap .left h3 {
+    color: rgba(255, 255, 255, 1);
+    font-size: 12px;
+    font-weight: 600;
+}
+#wrap #main .section10-14 .container .gap .left h3::after {
+    content: "";
+    display: block;
+    width: 125%;
+    height: 2px;
+    background: rgb(0, 255, 151);
+    margin: 5px 0 0 0;
+    transition: all 0.3s;
+}
+#wrap #main .section10-14:hover .container .gap .left h3::after {
+    /* hover는 after앞에! */
+    width: 150%;
+}
+#wrap #main .section10-14 .container .gap .right {
+    width: 50%;
+    /* background-color: green; */
+}
+#wrap #main .section10-14 .container .gap .right p {
+    color: rgba(255, 255, 255, 1);
+    font-size: 18px;
+    font-weight: 600;
+    padding: 0 0 20px 0;
+    line-height: 120%;
+    /* 글자크기의 20%만 공간을 띄겠다는 뜻 */
+}
+#wrap #main .section10-14 .container .gap .right h6 {
+    color: rgba(255, 255, 255, .5);
+    font-size: 11px;
+    font-weight: 500;
+}
+#wrap #main .section10-14 .container .gap .right h6 a {
+    color: rgba(255, 255, 255, .5);
+    /* 글자크기는 위에서할수있는데, 글자색상은 무조건 a태그에서 해줘야함 */
+    transition: all 0.3s;
+    /* 원본에 부드럽게 시간을 주는효과 */
+}
+#wrap #main .section10-14 .container .gap .right h6 a:hover {
+    color: rgba(255, 255, 255, .3);
+
+}
+
+/* 섹션별 배경이미지 설정 */
+#wrap #main #section10::before {
+    background-image: url(../img/photography-img35.jpg.webp);
+}
+#wrap #main #section11::before {
+    background-image: url(../img/photography-img36.jpg.webp);
+}
+#wrap #main #section12::before {
+    background-image: url(../img/photography-img37.jpg.webp);
+}
+#wrap #main #section13::before {
+    background-image: url(../img/photography-img38.jpg.webp);
+}
+#wrap #main #section14::before {
+    background-image: url(../img/photography-img39.jpg.webp);
+}
+
+#wrap #main #section15 {
+    width: 100%;
+    height: 700px;
+    background-color: rgba(150, 0, 145, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+#wrap #main #section15 h2 {
+    font-size: 200px;
+    font-weight: 600;
+    color: rgba(0, 255, 151, .5);
+}
+#wrap #main #section15 span {
+    position: absolute;
+    left: 0;
+    bottom: 60px;
+    width: 100%;
+    text-align: center;
+}
+#wrap #main #section15 span strong {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    display: inline-block;
+}
+#wrap #main #section15 span strong::after {
+    content: "";
+    display: block;
+    height: 3px;
+    margin: 20px 0 0 0;
+    background: rgba(0, 255, 151, 1);
+}
+
+/* footer영역 */
+#wrap #footer {
+    z-index: 1;
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background-color: rgba(0, 155, 209, .5);
+}

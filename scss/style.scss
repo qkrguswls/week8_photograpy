@@ -1,0 +1,1583 @@
+#wrap {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    #header {
+        z-index: 3;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 76px;
+        background: rgba(0, 0, 0, 0);
+        border-bottom: 1px solid rgba(255, 255, 255, .15);
+        transition: all 0.3s ease-in-out; //animation대신 transition써줌
+        &.down {
+            transform: translateY(-76px);
+            height: 60px;
+            background: rgba(0, 0, 0, .8);
+        }
+        &.up {
+            transform: translateY(0);
+            height: 60px;
+            background: rgba(0, 0, 0, .8);
+        }
+        .container {
+            width: 100%;
+            max-width: 1170px; /*반응형일때 1170을 만나면 100%로됨, 1170을 넘으면 더이상커지지않음*/
+            height: 100%; /* 75픽셀이됨(왜냐면 부모가 76px에서 보더값1이 빠지니까), so 76px이라고 쓰면 안됨 */
+            margin: 0 auto;
+            .gap {
+                padding: 0 15px;
+                display: flex;
+                height: 100%;
+                h1 {
+                    width: 156px;
+                    margin: auto auto auto 0; /* 왼쪽가운데정렬 */
+                    a {
+                        display: block;
+                        width: 100%; /* 부모넓이 156을쓰겠다는뜻 */
+                        img {
+                            width: 100%;
+                            /* 만약에 나중에 로고크기를 줄여야한다면 h1만 수정하면되니까 편리함 */
+                        }
+                    }
+                }
+                nav {
+                    margin: auto 0 auto auto; /* 오른쪽가운데정렬 */
+                    display: flex;
+                    align-items: center;
+                    height: 100%;
+                    ul {
+                        display: flex;
+                        li {
+                            margin: 0 0 0 40px;
+                            /* 되도록이면 좌우는 패딩말고 마진으로 값주기 */
+                            a {
+                                color: rgba(255, 255, 255, 1);
+                                /* a가 아니라 li에 쓰면 안바뀜 => 이유는 reset에서 a의 글씨색을 변경했기때문에! */
+                                font-size: 12px;
+                                font-weight: 600;
+                                transition: all 0.3s;
+                                /* hover가 느릿하게바뀌도록 시간을 추가해줌, 0.3초만에 나타나게 */
+                                display: block;
+                                &:hover { //a:hover 표기법..a안에쓰기, &는 부모요소라는 뜻
+                                    color: rgba(255, 255, 255, .6);
+                                }
+                                &.on::after {
+                                    content: '';
+                                    display: block;
+                                    width: 100%;
+                                    height: 1px;
+                                    background: #fff;
+                                    transform: translateY(3px);
+                                }
+                            }
+                        }
+                    }
+                    .mobile {
+                        width: 44px;
+                        height: 34px;
+                        padding: 10px;
+                        // background-color: #c09;
+                        display: none;
+                        a {
+                            display: block;
+                            width: 100%;
+                            height: 100%;
+                            // background-color: #09f;
+                            position: relative;
+                            i {
+                                display: block;
+                                width: 100%;
+                                height: 2px;
+                                background: #fff;
+                                position: absolute;
+                                left: 0;
+                                transition: all 0.3s ease-in-out;
+                                &.line1 {
+                                    top: 0;
+                                }
+                                &.line2 {
+                                    top: 50%; 
+                                    margin-top: -1px;
+                                }
+                                &.line3 {
+                                    bottom: 0;
+                                }
+                            }
+                            &.on {
+                                i {
+                                    &.line1 {
+                                        top: 50%;
+                                        margin-top: -1px; //가운데로
+                                        transform: rotate(-135deg);
+                                    }
+                                    &.line2 {
+                                        display: none;
+                                    }
+                                    &.line3 {
+                                        bottom: 50%;
+                                        margin-bottom: -1px;
+                                        transform: rotate(135deg);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    #main {
+        z-index: 2;
+        position: relative;
+        width: 100%;
+        #section1 {
+            position: relative;
+            /* position없으면 #section1의 span이 position을 main기준으로 되기때문에 위치가 메인 끝으로 가버림 */
+            width: 100%;
+            height: 100vh; /* 홈페이지 창의높이를 다쓰겠다는 뜻, 100%는 부모의 높이가 없어서 못쓰니까 */
+            background: url(../img/photography-img1-1024x512.jpg) no-repeat 50% 50% fixed;
+            /* 50%=center라는뜻..수평과 수직 */
+            /* fixed: 이미지를 배경에 고정함 */
+            background-size: cover;
+            /* 화면에 꽉채우도록 만들어줌 */
+            display: flex;
+            /* 타이틀 좌우, 상하가운데정렬: flex를 쓰는순간 블록에서 인라인으로 바뀜 */
+            justify-content: center; /* 수평가운데 */
+            align-items: center; /* 수직정렬 */
+            overflow: hidden; //scrollTop할때 밑에서부터 올라오는데, 그때 아래 섹션에서 올라오게됨
+            h2 {
+                font-size: 200px;
+                font-weight: 600;
+                color: rgba(0, 255, 151, .5);
+                animation: sec1Ani 1s ease-in-out both; //애니매이션 정의
+                transform: translateX(-1000px);
+            }
+            @keyframes sec1Ani { //animation이름은 카멜케이스 권장
+                0% {
+                    transform: translateX(-1000px);
+                    opacity: 0;
+                }
+                100% {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            span {
+                position: absolute;
+                bottom: 60px;
+                left: 0;
+                width: 100%;
+                /* background-color: #f00; */
+                text-align: center;
+                strong {
+                    font-size: 13px;
+                    font-weight: 500;
+                    color: #fff;
+                    display: inline-block;
+                    /* inline일 경우에는 strong:after의 줄이 길이가 화면을 꽉채움, 부모가 인라인으로 너비가 없으니까, 그래서 부모를 인라인속성에서 벗어나지 않지만 너비값을 가지는 인라인블록으로 해준거임 */
+                    &::after {
+                        content: "";
+                        display: block; /* 줄바꿈 */
+                        background-color: rgba(0, 255, 151, 1);
+                        height: 3px;
+                        margin: 20px 0 0 0; /* 시계방향 */
+                    }
+                }
+            }
+        }
+        #section2 {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: url(../img/photography-img2-1024x512.jpg) no-repeat 50% 50% fixed;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            h2 {
+                font-size: 200px;
+                font-weight: 600;
+                color: rgba(0, 255, 151, .5);  
+                // 1000픽셀 아래로 내려가서 대기: translateY
+                // 1000픽셀 오른쪽에서 대기 :translateX
+                transform: translateX(1000px);
+                opacity: 0;
+            }
+            &.on {
+                h2 {
+                    animation: sec2Ani 1.5s ease-in-out both; 
+                    // both : 애니매이션종료시 키프레임 100%로 머물게하도록
+                }       
+            }
+            @keyframes sec2Ani { //keyframes은 무조건 밖에!
+                0% {
+                    transform: translateX(1000px);
+                    opacity: 0;
+                }
+                100% {
+                    transform: translateX(0px);
+                    opacity: 1;
+                }
+            }
+            span {
+                position: absolute;
+                bottom: 60px;
+                left: 0;
+                width: 100%;
+                text-align: center;
+                /* background-color: red; */
+                strong {
+                    font-size: 13px;
+                    font-weight: 500;
+                    color: #fff;
+                    display: inline-block;
+                    &::after {
+                        content: "";
+                        display: block;
+                        height: 3px;
+                        margin: 20px 0 0 0;
+                        background: rgba(0, 255, 151, 1);
+                    }
+                }
+            }
+        }
+        #section3 {
+            width: 100%;
+            height: 100vh;
+            background: url(../img/photography-img3-1024x512.jpg) no-repeat 50% 50% fixed;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            h2 {
+                font-size: 200px;
+                color: rgba(0, 255, 151, .5);
+                font-weight: 600;
+                // 1000픽셀 아래로 내려가서 대기
+                transform: translateX(-1000px);
+                opacity: 0;
+            }
+            &.on {
+                h2 {
+                    animation: sec3Ani 1.5s ease-in-out both; 
+                    // both : 애니매이션종료시 키프레임 100%로 머물게하도록
+                }       
+            }
+            @keyframes sec3Ani { //keyframes은 무조건 밖에!
+                0% {
+                    transform: translateX(-1000px);
+                    opacity: 0;
+                }
+                100% {
+                    transform: translateX(0px);
+                    opacity: 1;
+                }
+            }
+            span {
+                position: absolute;
+                bottom: 60px;
+                left: 0;
+                width: 100%;
+                /* background-color: red; */
+                text-align: center;
+                strong {
+                    color: #fff;
+                    font-size: 13px;
+                    font-weight: 500;
+                    display: inline-block;
+                    &::after {
+                        content: "";
+                        display: block;
+                        height: 3px;
+                        background: rgba(0, 255, 151, 1);
+                        margin: 20px 0 0 0;
+                    }
+                }
+            }
+        }
+        #section4 {
+            width: 100%;
+            height: 100vh;
+            background: url(../img/photography-img4-1024x512.jpg) no-repeat 50% 50% fixed;
+            background-size: cover;
+            display: flex;
+            /* 플렉스 부모 = 플렉스 컨테이너 */
+            /* 부모에서는 align, justify쓰고 자식에서하려면 margin씀 */
+            position: relative;
+            overflow: hidden;
+            h2 {
+                font-size: 200px;
+                font-weight: 600;
+                color: rgba(0, 255, 151, .5);
+                /* 이번엔 부모말고 여기서 정렬해보기 */
+                /* (용어) 플렉스 자식 = 플렉스 아이템 */
+                margin: auto; /* auto 0 0 0은 아래정렬, auto 0 0 auto은 오른쪽정렬, 0 auto 0 auto는 가운데정렬, auto auto 0 auto는 수직아래 수평가운데 */
+                // 1000픽셀 아래로 내려가서 대기
+                transform: translateX(1000px);
+                opacity: 0;
+            }
+            &.on {
+                h2 {
+                    animation: sec4Ani 1.5s ease-in-out both; 
+                    // both : 애니매이션종료시 키프레임 100%로 머물게하도록
+                }       
+            }
+            @keyframes sec4Ani { //keyframes은 무조건 밖에!
+                0% {
+                    transform: translateX(1000px);
+                    opacity: 0;
+                }
+                100% {
+                    transform: translateX(0px);
+                    opacity: 1;
+                }
+            }
+            span {
+                position: absolute;
+                bottom: 60px;
+                left: 0;
+                /* background-color: red; */
+                width: 100%;
+                text-align: center;
+                strong {
+                    color: #fff;
+                    font-size: 13px;
+                    font-weight: 600;
+                    display: inline-block;
+                    &::after {
+                        content: "";
+                        display: block;
+                        height: 3px;
+                        background: rgba(0, 255, 151, 1);
+                        margin: 20px 0 0 0;
+                    }
+                }
+            }
+        }
+        #section5 {
+            width: 100%;
+            background: #fff url(../img/photography-img5-1024x425.jpg) no-repeat 50% 50%;
+            background-size: cover;
+            padding: 130px 0;
+            overflow: hidden;
+            .container {
+                width: 100%;
+                max-width: 1170px; //1170을 만나면 100%로!
+                margin: 0 auto;
+                .gap {
+                    width: 100%;
+                    .content {
+                        display: flex;
+                        flex-flow: row wrap;
+                        .left {
+                            width: 50%;
+                            transform: translateY(1000px);
+                            opacity: 0;
+                            .col-gap {
+                                margin: 0 15px;
+                                width: auto;
+                                display: flex;
+                                height: 100%;
+                                h2 {
+                                    color: rgba(0, 255, 151, .5);
+                                    font-size: 100px;
+                                    font-weight: 600;
+                                    margin: 80px 0 auto 0; 
+                                }
+                            }
+                        }
+                        .right {
+                            width: 50%;
+                            // background-color: #ccc;
+                            transform: translateY(1000px);
+                            opacity: 0;
+                            .col-gap {
+                                margin: 0 15px;
+                                h2 {
+                                    width: 55%;
+                                    font-size: 24px;
+                                    font-weight: 600;
+                                    line-height: 120%;
+                                    color: #626262;
+                                    span {
+                                        display: block;
+                                        line-height: 100%;
+                                        transform: translateY(22px);
+                                        i {
+                                            font-size: 200px;
+                                            color: #85eea5;
+                                            font-family: 'Montserrat';
+                                        }
+                                    }
+                                }
+                                p {
+                                    font-size: 14px;
+                                    color: #626262;
+                                    line-height: 180%;
+                                    padding: 50px 0;
+                                    width: 60%;
+                                    font-family: 'Roboto';
+                                    letter-spacing: 0.3px; 
+                                }
+                                > span {
+                                    a {
+                                        font-size: 14px;
+                                        color: #626262;
+                                        display: inline-block;
+                                        padding: 0 40px 0 0; 
+                                        position: relative;
+                                        &::after {
+                                            content: "";
+                                            display: block;
+                                            position: absolute;
+                                            top: 50%;
+                                            margin: -5.5px 0 0 0; 
+                                            left: 0;
+                                            width: 100%;
+                                            height: 11px;
+                                            background: url(../img/arrow.png) no-repeat -20px 50%;
+                                            transition: all 0.3s ease-in-out;
+                                        }
+                                        &:hover {
+                                            &::after {
+                                                background-position: 0 50%;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            &.on {
+                .container {
+                    .gap {
+                        .content {
+                            .left {
+                                animation: sec5Ani1 1s ease-in-out both;
+                            }
+                            .right {
+                                animation: sec5Ani2 1.8s ease-in-out both;
+                            }
+                        }
+                    }
+                }
+            }
+            @keyframes sec5Ani1 {
+                0% {
+                    transform: translateY(1000px);
+                    opacity: 0;
+                }
+                100% {
+                    transform: translateY(0px);
+                    opacity: 1;
+                }
+            }
+            @keyframes sec5Ani2 {
+                0% {
+                    transform: translateY(1000px);
+                    opacity: 0;
+                }
+                100% {
+                    transform: translateY(0px);
+                    opacity: 1;
+                }
+            }
+        }
+        #section6 {
+            width: 100%;
+            background: #fff url(../img/photography-img6-1024x287.jpg) no-repeat 50% 50%;
+            background-size: cover;
+            padding: 130px 0;
+            .container {
+                width: 100%;
+                max-width: 1170px;
+                margin: 0 auto;
+                .gap {
+                    width: 100%;
+                    .content {
+                        width: 100%;
+                        display: flex;
+                        flex-flow: row wrap;
+                        flex-direction: row-reverse;
+                        // flex성격: 자식태그 왼쪽박스 높이에 맞춰서 오른쪽박스의 높이가 자동으로 설정됨, 우측박스 안에서 수직정렬을 할수있음, 단 .right의 높이는 지정하지않고 right의 자식요소에서 높이를 지정해야함
+                        .left {
+                            width: 50%;
+                            transform: translateX(1000px);
+                            .col-gap {
+                                margin: 0 15px;
+                                width: auto;
+                                display: flex;
+                                height: 100%;
+                                h2 {
+                                    color: rgba(0, 255, 151, .5);
+                                    font-size: 100px;
+                                    font-weight: 600;
+                                    margin: auto; //부모태그에서 align, justify대신 여기서 마진잡아줌
+                                }
+                            }
+                        }
+                        .right { //p와 패딩때문에 height값이 생김
+                            width: 50%;
+                            transform: translateX(-1000px);
+                            .col-gap {
+                                margin: 0 15px;
+                                width: auto;
+                                p {
+                                    font-size: 14px;
+                                    color: #626262;
+                                    line-height: 200%;
+                                    padding: 100px 0 50px 0;
+                                    width: 60%;
+                                    font-family: 'Roboto';
+                                    letter-spacing: 0.3px; //글자사이의 간격 0.3픽셀 늘어나도록(가독성을 위해)
+                                }
+                                span {
+                                    a {
+                                        font-size: 14px;
+                                        color: #626262;
+                                        display: inline-block;
+                                        padding: 0 40px 0 0; //inline-block의 범위를 늘려줌(화살표가 오른쪽으로 나갈수있게)
+                                        position: relative;
+                                        // background-color: blue;
+                                        &::after {
+                                            content: "";
+                                            display: block;
+                                            position: absolute;
+                                            top: 50%;
+                                            margin: -5.5px 0 0 0; //높이의 절반만큼 내려줘야 보임
+                                            left: 0;
+                                            width: 100%;
+                                            height: 11px;
+                                            background: url(../img/arrow.png) no-repeat -20px 50%;
+                                            transition: all 0.3s ease-in-out;
+                                        }
+                                        &:hover {
+                                            &::after {
+                                                background-position: 0 50%;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            &.on {
+                .container {
+                    .gap {
+                        .content {
+                            .left {
+                                animation: sec6AniLeft 2s ease-in-out both;
+                            }
+                            .right {
+                                animation: sec6AniRight 2s ease-in-out both;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        @keyframes sec6AniLeft {
+            0% {transform: translateX(1000px);}
+            100% {transform: translateX(0);}
+        }
+        @keyframes sec6AniRight {
+            0% {transform: translateX(-1000px);}
+            100% {transform: translateX(0);}
+        }
+        #section7 {
+            width: 100%;
+            background: #fff;
+            overflow: hidden;
+            .container {
+                width: 100%;
+                .gap {
+                    width: 100%;
+                    .content {
+                        width: 100%;
+                        ul {
+                            width: 100%;
+                            display: flex;
+                            flex-flow: row wrap; //나중에 너비가 좁아질때 줄바꿈해주려고!
+                            li {
+                                width: 25%;
+                                transform: translateY(1000px);
+                                opacity: 0;
+                                &:nth-child(1) {
+                                    transition: all 0.3s ease-in-out;
+                                }
+                                &:nth-child(2) {
+                                    transition: all 0.6s ease-in-out;
+                                }
+                                &:nth-child(3) {
+                                    transition: all 0.9s ease-in-out;
+                                }
+                                &:nth-child(4) {
+                                    transition: all 1.1s ease-in-out;
+                                }
+                                .col-gap {
+                                    width: 100%;
+                                    .img-box {
+                                        width: 100%;
+                                        position: relative;
+                                        outline: 8px solid rgba(255, 255, 255, .3);
+                                        outline-offset: -30px;
+                                        //outline은 박스크기에 영향을 안줌(보더를 쓰면 영향을 줌)
+                                        img {
+                                            width: 100%;
+                                        }
+                                        .caption-box {
+                                            position: absolute;
+                                            width: 70%;
+                                            height: 70%; //부모에 height가없어도 형제인 이미지가 높이값이 있으니 잡힘
+                                            // background-color: rgba(255, 0, 0, .3);
+                                            overflow: hidden; //span태그 가려주려고
+                                            left: 15%;
+                                            top: 15%; //마진대신 가운데배치방법
+                                            display: flex;
+                                            h3 {
+                                                margin: auto; //상하좌우 가운데
+                                                color: #fff;
+                                                font-size: 1.839201261vw;
+                                                font-weight: 500;
+                                                transition: all 0.3s ease-in-out; //all은 컬러, 폰트사이즈 등 모든걸 해준다는 것
+                                                // &.on {
+                                                //     margin-bottom: 80px; // 원랜 margin: auto auto auto auto인데=>bottom만 바꾸니까!(원칙은 마진으로, 수정할땐 마진-바텀으로)
+                                                //     color: #000;
+                                                //     font-size: 27px;
+                                                // }
+                                            }
+                                            span {
+                                                position: absolute;
+                                                bottom: -20px; //caption-box의배경 밖으로 내보내게! (hidden해줌)
+                                                left: 0;
+                                                width: 100%;
+                                                text-align: center;
+                                                transition: all 0.3s ease-in-out;
+                                                opacity: 0;
+                                                // &.on {
+                                                //     bottom: 30px;
+                                                // }
+                                                a {
+                                                    color: #000;
+                                                    display: inline-block; //글자에 라인이있어서(글자보다 기니까)
+                                                    padding: 0 8px;
+                                                    font-size: 13px;
+                                                    position: relative;
+                                                    &::after {
+                                                        content: "";
+                                                        display: block;
+                                                        position: absolute;
+                                                        top: 50%;
+                                                        left: 0;
+                                                        margin: -1px 0 0 0;
+                                                        width: 100%;
+                                                        height: 1px;
+                                                        background: #000;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                // 위에서 설정한 스타일을 마우스오버시 변경한다
+                                &:hover {
+                                    .col-gap {
+                                        .img-box {
+                                            .caption-box {
+                                                h3 {
+                                                    // margin-bottom: 80px; // 원랜 margin: auto auto auto auto인데=>bottom만 바꾸니까!(원칙은 마진으로, 수정할땐 마진-바텀으로) => 애니메이션효과가 안이뻐서 트렌스폼으로 해주려고
+                                                    color: #000;
+                                                    font-size: 27px;
+                                                    transform: translateY(100px);
+                                                }
+                                                span {
+                                                    bottom: 30px;
+                                                    opacity: 1;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            &.on {
+                overflow: visible;
+                .container {
+                    .gap {
+                        .content {
+                            ul {
+                                li {
+                                    opacity: 1;
+                                    &:nth-child(odd) {
+                                        transform: translateY(0);
+                                    }
+                                    &:nth-child(even) {
+                                        transform: translateY(-20px);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        #section8 {
+            width: 100%;
+            // height: 700px;
+            background: #fff;
+            padding: 130px 0;
+            overflow: hidden;
+            .container {
+                width: 100%;
+                max-width: 1170px; //최대 1170 - 그 이하이면 화면 가운데 배치
+                margin: 0 auto;
+                background: #fff;
+                .gap {
+                    margin: 0 15px;
+                    width: auto; //margin을쓰니까 auto, padding이면 100%
+                    .content {
+                        width: 100%; //1140px
+                        // background-color: #99c;
+                        overflow: hidden; //1140을 넘는 내용은 숨김
+                        nav {
+                            width: 100%;
+                            text-align: center;
+                            padding: 0 0 100px 0;
+                            transform: translateX(1000px);
+                            opacity: 0;
+                            transition: all 0.8s ease-in-out;
+                            ul {
+                                width: auto;
+                                // display: inline-block; inlne-flex와 동일한데, 얘로는 li정렬은 못해서 이걸 지워줌 => 자신만 인라인설정임(글자길이만큼 넓이가 되는게 인라인속성!..위에 텍스트정렬이 가능해짐)
+                                // background-color: #c00;
+                                display: inline-flex; //자신도 inline이 되면서 자식인 li도 inline으로 만들어줌, 그냥 flex는 자신은 블록, 자식은 인라인성질임
+                                transition: all 0.3s ease-in-out;
+                                li {
+                                    margin: 0 30px;
+                                    transition: all 0.3s ease-in-out;
+                                    a {
+                                        font-size: 15px;
+                                        font-weight: 600;
+                                        color: #9b9b9b;
+                                        display: block;
+                                        padding: 0 15px; //hover했을때 글자옆공간에도 hover가 되는거때문에
+                                        // background-color: #ea4c89; 화살공간확인
+                                        position: relative;
+                                        span {
+                                            z-index: 1;
+                                            position: relative;
+                                            // background-color: #b00;
+                                        }
+                                        &.on::after {
+                                            content: "";
+                                            display: block; //absolute를 쓰면 넓이와높이가 먹어서 안써줘도됨
+                                            width: 100%;
+                                            height: 110%;
+                                            position: absolute;
+                                            top: 0;
+                                            left: 0;
+                                            background: url(../img/arrow.png) no-repeat 50% 50%;
+                                            background-size: 100% 11px; //수평수직 순서
+                                            z-index: 2;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .gallery {
+                            width: 1180px; //창너비+마진40
+                            margin: 0 0 0 -40px; //초과된 좌측여백만큼 왼쪽으로 이동
+                            transform: translateY(500px);
+                            opacity: 0;
+                            transition: all 1s ease-in-out;
+                            ul {
+                                width: 100%;
+                                // display: flex;
+                                // flex-flow: row wrap;
+                                position: relative;
+                                // height: 352px + 40px + 529.984px + 40px + 352px + 40px + 529.984px + 40px; 
+                                height: ((352px * 2) + (529.984px * 2)) - (40px * 3);
+                                li {
+                                    position: absolute; //앱솔루트는 높이를 못잡아서 ul에서 꼭 잡아줘야함
+                                    top: 0;
+                                    left: 0;
+                                    width: calc(100% / 3);
+                                    &.list1 {
+                                        top: 0; 
+                                        left: 0; //calc(100% / 3) * 0 으로 해줘도됨
+                                    }
+                                    &.list2 {
+                                        top: 0; 
+                                        left: calc(100% / 3); //첫번째값만큼 오른쪽으로 가야함
+                                    }
+                                    &.list3 {
+                                        top: 0;
+                                        left: calc(100% / 3) * 2;
+                                    }
+
+                                    // 가변높이 구하기: 너비/높이=v, 가변너비*v=가변높이 => 가변너비는 calc(100% / 3)해준값
+                                    // v=가변높이비율!
+                                    // 이미지너비800, 높이797, v=0.99625, 가변너비=353.328(calc해준것), 가변높이=352.00302
+                                    &.list4 {
+                                        top: (352px + 40px);
+                                        left: calc(100% / 3) * 0;
+                                    }
+                                    &.list5 {
+                                        top: (529.984px + 40px);
+                                        left: calc(100% / 3) * 1;
+                                    }
+                                    &.list6 {
+                                        top: (352px + 40px);
+                                        left: calc(100% / 3) * 2;
+                                    }
+
+                                    &.list7 {
+                                        top: (352px + 40px + 529.984px + 40px);
+                                        left: calc(100% / 3) * 0;
+                                    }
+                                    &.list8 {
+                                        top: (529.984px + 40px + 352px + 40px);
+                                        left: calc(100% / 3) * 1;
+                                    }
+                                    &.list9 {
+                                        top: (352px + 40px + 529.984px + 40px);
+                                        left: calc(100% / 3) * 2;
+                                    }
+
+                                    &.list10 {
+                                        top: (352px + 40px + 529.984px + 40px + 352px + 40px);
+                                        left: calc(100% / 3) * 0;
+                                    }
+                                    &.list11 {
+                                        top: (529.984px + 40px + 352px + 40px + 529.984px + 40px);
+                                        left: calc(100% / 3) * 1;
+                                    }
+                                    &.list12 {
+                                        top: (352px + 40px + 529.984px + 40px + 352px + 40px);
+                                        left: calc(100% / 3) * 2;
+                                    }
+                                    .col-gap {
+                                        margin: 0 0 40px 40px;
+                                        width: auto;
+                                        overflow: hidden;
+                                        .img-box {
+                                            width: 100%;
+                                            position: relative;
+                                            transform: scale(0); //사라졌다가
+                                            transition: all 0.3s ease-in-out;
+                                            &:hover {
+                                                cursor: url(../img/icon-zoom-white2.png), auto;
+                                            }
+                                            img {
+                                                width: 100%;
+                                                position: relative;
+                                                z-index: 1;
+                                                transition: all 0.3s ease-in-out;
+                                            }
+                                            &:hover {
+                                                img {
+                                                    transform: scale(1.2);
+                                                    filter: blur(2px);
+                                                }
+                                            }
+                                            .color-cap-bg {
+                                                position: absolute;
+                                                z-index: 2;
+                                                top: 0;
+                                                left: 0;
+                                                width: 100%;
+                                                height: 100%;
+                                                background-image: linear-gradient(135deg, #00aced, #85eea5 80%); 
+                                                // to right: 오른쪽 가로로 .. deg로 써줘도됨 
+                                                opacity: 0;
+                                                transition: all 0.3s ease-in-out;
+                                            }
+                                            &:hover {
+                                                .color-cap-bg {
+                                                    opacity: .85;
+                                                }
+                                            }
+                                            .figcaption {
+                                                position: absolute;
+                                                z-index: 3;
+                                                bottom: 0;
+                                                left: 0;
+                                                // background-color: #ff0;
+                                                padding: 0 0 40px 50px;
+                                                transform: translateY(50px);
+                                                transition: all 0.3s ease-in-out;
+                                                opacity: 0;
+                                                hr {
+                                                    width: 80px;
+                                                    height: 5px;
+                                                    background: #000;
+                                                    border: 0;
+                                                }
+                                                h3 {
+                                                    padding: 25px 0 0 0;
+                                                    font-size: 18px;
+                                                    color: #000;
+                                                    font-weight: 600;
+                                                    line-height: 140%;
+                                                }
+                                            }
+                                            &:hover {
+                                                .figcaption {
+                                                    opacity: 1;
+                                                    transform: translateY(0);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    &.on {
+                                        .col-gap {
+                                            .img-box {
+                                                transform: scale(1); //원래대로
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            &.on {
+                .container {
+                    .gap {
+                        .content {
+                            nav {
+                                transform: translateX(0);
+                                opacity: 1;
+                            }
+                            .gallery {
+                                transform: translateY(0);
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        #section9 {
+            padding: 130px 0;
+            width: 100%;
+            background: #f7f7f7 url(../img/photography-img25-1536x638.jpg) no-repeat 50% 50%;
+            background-size: cover;
+            overflow: hidden;
+            .container {
+                width: 100%;
+                max-width: 1170px;
+                margin: 0 auto;
+                .gap {
+                    /* padding: 0 15px;
+                    width: 100%; */
+                    /* width에 패딩이포함됨(reset.css에서 box-sizing:보더박스) => 내부내용 너비는 1140px이 됨 => 그러나 마진을 쓰면 포함이 안되므로 마진만큼 길이가 늘어나게됨 => so, 마진을 쓸땐 width:auto를 주기!(auto:허용하는 길이를 주겠다는 뜻) */
+                    margin: 0 15px;
+                    width: auto;
+                    /* background: darkcyan; */
+                    display: flex;
+                    flex-flow: row wrap; //반응형시에는 꼭 함께 써주기(줄바꿈해줘야하니까)
+                    article {
+                        width: 50%;
+                        /* height: 700px; 임시높이*/
+                        &:nth-child(1) {
+                            h2 {
+                                font-size: 100px;
+                                color: rgba(0, 255, 151, .5);
+                                padding: 75.5px 0;
+                                font-weight: 600;
+                                transform: translateY(1000px);
+                                opacity: 0;
+                                transition: all 1s ease-in-out;
+                            }
+                        }
+                        &:nth-child(2) {
+                            transform: translateY(1000px);
+                            opacity: 0;
+                            transition: all 1.3s ease-in-out;
+                            .title {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                /* 전파일에서처럼 margin으로 줘도되고 이것도 된대; */
+                                hr {
+                                    border: 0;
+                                    height: 1px;
+                                    background: rgb(0, 255, 151);
+                                    width: 75%;
+                                }
+                                h3 {
+                                    font-size: 20px;
+                                    color: #626262;
+                                    font-weight: 500;
+                                }
+                            }
+                            ul {
+                                padding: 30px 0;
+                                width: 100%;
+                                display: flex;
+                                flex-flow: row wrap;
+                                li {
+                                    width: 50%;
+                                    display: flex;
+                                    padding: 15px 10px;
+                                    figure {
+                                        width: 67.5px;
+                                        height: 67.5px;
+                                        img {
+                                            width: 67.5px;
+                                            height: 67.5px;
+                                        }
+                                    }
+                                    div {
+                                        padding: 0 0 0 15px;
+                                        h4 {
+                                            font-size: 13px;
+                                            color: rgb(98, 98, 98);
+                                            font-weight: 500;
+                                        }
+                                        h5 {
+                                            padding: 10px 0 15px 0;
+                                            font-size: 11px;
+                                            color: rgb(98, 98, 98);
+                                        }
+                                        span {
+                                            display: block;
+                                            i {
+                                                display: block;
+                                                width: 30px;
+                                                height: 2px;
+                                                background: rgb(98, 98, 98);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            &.on {
+                .container {
+                    .gap {
+                        article {
+                            &:nth-child(1) {
+                                h2 {
+                                    transform: translateY(0);
+                                    opacity: 1;
+                                }
+                            }
+                            &:nth-child(2) {
+                                transform: translateY(0);
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        /* 섹션10 ~ 섹션14 공통요소 스타일적용 */
+        .section10-14 {
+            width: 100%;
+            height: 246.391px;
+            position: relative;
+            overflow: hidden;
+            &::before {
+                content: "";
+                display: block;
+                width: 100%;
+                height: 100%;
+                background: url() no-repeat 50% 40%;
+                /* url괄호안에 이미지넣어놓고 밑에서 #section10::before을 빼줘도되고 이렇게해도됨 */
+                filter: brightness(0.7);
+                /* filter: 1은 밝기를 최대로쓰니까 똑같음 아래로내릴수록 어둡게 */
+                background-size: cover;
+                z-index: 1;
+                position: absolute; /*z-index를 위해서 relative를 해줬는데, 그거때매 배경이 꽉차게 돼서 container박스가 못올라옴->앱솔루트로 바꿔줌,얘를 공중에 떠놓고 제목에는 포지션안줘도 위에 올라오게됨*/
+                top: 0;
+                left: 0;
+                transition: all 0.3;
+            }
+            &:hover {
+                &::before {
+                    background-position: 50% 20%;
+                    /* 좌우, 상하 순 */
+                }
+                &::after {
+                    background-color: rgba(70, 70, 70, .2);
+                }
+                .container {
+                    .gap {
+                        .left {
+                            h3 {
+                                ::after {
+                                    /* hover는 after앞에! */
+                                    width: 150%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            &::after {
+                /* 필터를 덮고있는 뿌연검정화면을 만드려고 */
+                content: "";
+                display: block;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%; /*부모요소의 높이를 다 사용하겠다!*/
+                z-index: 2; /*before가 1이니까*/
+                background: rgba(70, 70, 70, .7);
+                transition: all 0.3s;
+            }
+            .container {
+                width: 100%;
+                max-width: 1170px;
+                margin: 0 auto;
+                /* background-color: red; */
+                z-index: 3;
+                position: relative;
+                height: 100%;
+                .gap {
+                    padding: 0 15px;
+                    display: flex;
+                    flex-flow: row wrap;
+                    align-items: center;
+                    height: 100%;
+                    .left {
+                        width: 50%;
+                        /* background-color: blue; */
+                        display: flex;
+                        align-items: center;
+                        transform: translateX(-1000px);
+                        transition: all 1s ease-in-out;
+                        opacity: 0;
+                        /* 이건 자식에 높이가 있어서 align center가 됨, h태그는 글자크기가 주어져있으니 height값이 있다고보면됨 */
+                        h2 {
+                            color: rgba(133, 238, 165, 1);
+                            font-size: 80px;
+                            font-weight: 500;
+                            width: 130px;
+                            /* padding주면 h2안에적은 글자길이에 따라 여백이 달라지게 돼서 가로값을 고정으로 줌 */
+                        }
+                        h3 {
+                            color: rgba(255, 255, 255, 1);
+                            font-size: 12px;
+                            font-weight: 600;
+                            &::after {
+                                content: "";
+                                display: block;
+                                width: 125%;
+                                height: 2px;
+                                background: rgb(0, 255, 151);
+                                margin: 5px 0 0 0;
+                                transition: all 0.3s;
+                            }
+                        }
+                    }
+                    .right {
+                        width: 50%;
+                        /* background-color: green; */
+                        transform: translateX(1000px);
+                        opacity: 0;
+                        transition: all 1.3s ease-in-out;
+                        p {
+                            color: rgba(255, 255, 255, 1);
+                            font-size: 18px;
+                            font-weight: 600;
+                            padding: 0 0 20px 0;
+                            line-height: 120%;
+                            /* 글자크기의 20%만 공간을 띄겠다는 뜻 */
+                        }
+                        h6 {
+                            color: rgba(255, 255, 255, .5);
+                            font-size: 11px;
+                            font-weight: 500;
+                            a {
+                                color: rgba(255, 255, 255, .5);
+                                /* 글자크기는 위에서할수있는데, 글자색상은 무조건 a태그에서 해줘야함 */
+                                transition: all 0.3s;
+                                /* 원본에 부드럽게 시간을 주는효과 */
+                                &:hover {
+                                    color: rgba(255, 255, 255, .3);
+                                
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            &.on {
+                .container {
+                    .gap {
+                        .left {
+                            transform: translateX(0);
+                            opacity: 1;
+                        }
+                        .right {
+                            transform: translateX(0);
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+        #section10 {
+            &::before {
+                background-image: url(../img/photography-img35.jpg.webp);
+            }
+        }
+        #section11 {
+            &::before {
+                background-image: url(../img/photography-img36.jpg.webp);
+            }
+        }
+        #section12 {
+            &::before {
+                background-image: url(../img/photography-img37.jpg.webp);
+            }
+        }
+        #section13 {
+            &::before {
+                background-image: url(../img/photography-img38.jpg.webp);
+            }
+        }
+        #section14 {
+            &::before {
+                background-image: url(../img/photography-img39.jpg.webp);
+            }
+        }
+        #section15 {
+            width: 100%;
+            background: #fff;
+            padding: 130px 0;
+            .container {
+                width: 100%;
+                max-width: 945px;
+                margin: 0 auto;
+                // background-color: #9c9;
+                // height: 500px; 임시높이
+                .gap {
+                    width: 100%;
+                    .title {
+                        width: 80%;
+                        margin: 0 auto;
+                        padding: 0 0 90px 0;
+                        // background-color: #ccc;
+                        ul {
+                            width: 100%;
+                            display: flex;
+                            flex-flow: row wrap;
+                            li {
+                                width: 33%;
+                                text-align: center;
+                                span {
+                                    display: block;
+                                    i {
+                                        font-size: 25px;
+                                        color: #929292;
+                                    }
+                                }
+                                h3 {
+                                    font-size: 13px;
+                                    color: #626262;
+                                    padding: 20px 0 8px 0;
+                                    font-weight: 500;
+                                }
+                                h4 {
+                                    font-size: 13px;
+                                    color: #626262;
+                                }
+                            }
+                        }
+                    }
+                    .content {
+                        width: 100%;
+                        // background-color: #f90;
+                        form {
+                            width: 100%;
+                            display: flex;
+                            flex-flow: row wrap;
+                            .left-box {
+                                width: 50%;
+                                .col-gap {
+                                    padding: 0 15px;
+                                    .input-box {
+                                        width: 100%;
+                                        height: 122px;
+                                        // background-color: #c00;
+                                        input {
+                                            width: 100%;
+                                            height: 51px;
+                                            border: 2px solid #ddd;
+                                            background: #fff;
+                                            padding: 0 15px;
+                                            padding: 10px 15px;
+                                            outline: 2px solid transparent;
+                                            transition: all 0.3s;
+                                            outline-offset: -2px;
+                                            font-size: 14px;
+                                            color: #626262;
+                                            &:focus {
+                                                outline: 2px solid #888;
+                                            }
+                                            &#userEmail {
+                                                margin: 20px 0 0 0;
+                                            }
+                                            &::placeholder {
+                                                font-size: 13px;
+                                                color: #929292;
+                                            }
+                                        }
+                                    }
+                                    p {
+                                        margin: 30px 0 0 0;
+                                        font-size: 11px;
+                                        color: #626262;
+                                        text-transform: uppercase; //모두 대문자
+                                        font-weight: 500;
+                                    }
+                                    .submit-message {
+                                        font-size: 12px;
+                                        font-family: 'Roboto';
+                                        letter-spacing: -0.5px;
+                                        .success-message {
+                                            display: none;
+                                            padding: 9px 20px;
+                                            border: 2px solid #46b450;
+                                            color: #666;
+                                            font-weight: 300;
+                                            &.on {
+                                                display: inline-block;
+                                            }
+                                        }
+                                        .error-message {
+                                            display: none;
+                                            padding: 9px 20px;
+                                            border: 2px solid #ffb900;
+                                            color: #666;
+                                            font-weight: 300;
+                                            &.on {
+                                                display: inline-block;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            .right-box {
+                                width: 50%;
+                                .col-gap {
+                                    padding: 0 15px;
+                                    .input-box {
+                                        width: 100%;
+                                        textarea {
+                                            width: 100%;
+                                            height: 122px;
+                                            border: 2px solid #ddd;
+                                            background: #fff;
+                                            padding: 10px 15px;
+                                            resize: none; //상자크기 조절못하도록
+                                            outline: 2px solid transparent;
+                                            transition: all 0.3s;
+                                            outline-offset: -2px; //라인이 안으로 들어오게(기본은 바깥으로 나가게됨)
+                                            font-size: 14px;
+                                            color: #626262;
+                                            &:focus {
+                                                outline: 2px solid #888;
+                                            }
+                                            &::placeholder {
+                                                font-size: 14px;
+                                                color: #929292;
+                                            }
+                                        }
+                                    }
+                                    button {
+                                        margin: 30px 0 0 0;
+                                        height: 50.563px;
+                                        padding: 0 20px;
+                                        border: 4px solid #000;
+                                        background: #000;
+                                        color: #fff;
+                                        font-size: 13px;
+                                        font-weight: 600;
+                                        transition: all 0.3s;
+                                        cursor: pointer;
+                                        &:hover {
+                                            background: #fff;
+                                            color: #000;
+                                        }
+                                    }
+                                }
+                            }
+                            .send-after-msg {
+                                display: none;
+                                width: 100%;
+                                padding: 0 15px;
+                                &.on {
+                                    display: block;
+                                }
+                                p {
+                                    font-size: 13px;
+                                    color: #626262;
+                                    font-weight: 500;
+                                    border: 2px solid #ffb900;
+                                    padding: 6px 15px 8px 15px;
+                                    display: inline-block;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    #footer {
+        z-index: 1;
+        position: relative;
+        width: 100%;
+        height: 236px;
+        background: url(../img/photography-img40.jpg) no-repeat 50% 50%;
+        background-size: cover;
+        .container {
+            width: 100%;
+            max-width: 1170px;
+            margin: 0 auto;
+            // background-color: #ccc;
+            .gap {
+                padding: 0 15px;
+                .row1 {
+                    width: 100%;
+                    text-align: center;
+                    padding: 60px 0;
+                    a {
+                        display: inline-flex; //그냥 flex는 block이니까
+                        width: 30px;
+                        height: 30px;
+                        justify-content: center;
+                        align-items: center;
+                        background: #007bb6;
+                        margin: 0 5px;
+                        border-radius: 3px;
+                        transition: all 0.3s;
+                        &:hover {
+                            opacity: 0.7;
+                        }
+                        &:nth-child(1) {
+                            background-color: #007bb6;
+                        }
+                        &:nth-child(2) {
+                            background-color: #00aced;
+                        }
+                        &:nth-child(3) {
+                            background-color: #ea4c89;
+                        }
+                        &:nth-child(4) {
+                            background-color: #b00;
+                        }
+                        &:nth-child(5) {
+                            background-color: #007bb6;
+                        }
+                        i {
+                            color: #fff;
+                            font-size: 14px;
+                        }
+                    }
+                }
+                hr {
+                    border: 0; //hr은 위아래양옆이 다있으니까 0으로 해주고 크기값을 잡아주기
+                    width: 100%;
+                    height: 1px;
+                    background: #ccc;
+                }
+                .row2 {
+                    padding: 40px 0;
+                    p {
+                        font-size: 11px;
+                        color: #626262;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+    #galleryModal {
+        display: none;
+        z-index: 4;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        .wrap {
+            width: 100%;
+            height: 100%;
+            .container {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                cursor: url(../img/icon-zoom-out.png), auto;
+                .content {
+                    width: 100%;
+                    max-width: 630px;
+                    margin: auto;
+                    height: auto;
+                    text-align: center;
+                    a {
+                        img {
+                            width: 100%;
+                            height: auto;
+                        }
+                    }
+                }
+                button {
+                    position: absolute;
+                    background: none;
+                    border: 0;
+                    &.close-btn {
+                        top: 0;
+                        right: 1px;
+                        font-size: 20px;
+                        width: 35px;
+                        height: 30px;
+                        background: #000;
+                        color: #fff;
+                        cursor: pointer;
+                    }
+                    &.prev-btn {
+                        top: 50%;
+                        left: 10px;
+                        font-size: 50px;
+                        margin-top: -30px;
+                        cursor: pointer;
+                        font-weight: 600;
+                    }
+                    &.next-btn {
+                        top: 50%;
+                        right: 10px;
+                        font-size: 50px;
+                        margin-top: -30px;
+                        cursor: pointer;
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+}

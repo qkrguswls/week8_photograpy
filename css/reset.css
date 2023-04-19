@@ -1,0 +1,38 @@
+* {
+    margin: 0; 
+    padding: 0; 
+    vertical-align: middle;
+    /* middle:예컨대 이미지를 가운데오게 만들도록, 상하(수직) 여백을 없애줌 */
+    /* img의 좌우 여백은 인라인태그특성..태그를 띄지말고 붙여적으면 양옆여백없어짐=인라인태그는 줄바뀌면 양쪽에 1px의 여백이 생김 */
+    box-sizing: border-box;
+    /* border와 padding을 포함하여 계산하겠다는 뜻 */
+}
+html {
+    overflow-y: scroll;
+    /* 세로스크롤바가 무조건 있도록 */
+    /* 팝업창에서는 auto로 */
+    scroll-behavior: smooth;
+    /* 스무스스크롤링 이벤트를 css에서 하기 */
+}
+html.on {
+    overflow: hidden;
+}
+body {
+    /* font: 굵기 크기/줄간격 '글꼴이름1', '글꼴이름2'; */
+    /* line-height:줄간격 => 줄간격1은 줄간격없이 글자크기높이를 쓰겠다는 뜻 */
+    font: normal 16px/1 'Montserrat', 'Nanum Gothic';
+    color: rgb(50, 50, 50);
+    background: rgb(255, 255, 255);
+}
+ul {list-style: none;}
+a {
+    color: rgb(50, 50, 50);
+    text-decoration: none;
+}
+header, main, footer, nav, aside, section, article {
+    display: block;
+    /* 무조건 줄바꿈으로 해주기위해..기본 블록인데 버젼에 따라 안되는 태그가 있어서 */
+}
+h1, h2, h3, h4, h5, h6, b, strong {font-weight: normal;}
+i, em, address {font-style: normal;}
+.hide {display: none;}
